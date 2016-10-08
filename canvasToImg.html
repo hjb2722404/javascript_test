@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 优先使用 IE 最新版本和 Chrome -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- 页面描述 -->
+    <meta name="description" content="不超过150个字符"/>
+    <!-- 页面关键词 -->
+    <meta name="keywords" content=""/>
+    <!-- 网页作者 -->
+    <meta name="author" content="hjb2722404, hjb2722404@gmail.com"/>
+    <!-- 搜索引擎抓取 -->
+    <meta name="robots" content="index,follow"/>
+    <!-- 为移动设备添加 viewport -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <!-- `width=device-width` 会导致 iPhone 5 添加到主屏后以 WebApp 全屏模式打开页面时出现黑边 http://bigc.at/ios-webapp-viewport-meta.orz -->
+
+    <title>Title</title>
+    <script>
+        window.onload = function() {
+            draw();
+            var saveButton = document.getElementById("saveImageBtn");
+            bindButtonEvent(saveButton, "click", saveImageInfo);
+            var dlButton = document.getElementById("downloadImageBtn");
+            bindButtonEvent(dlButton, "click", saveAsLocalImage);
+        };
+        function draw(){
+            var canvas = document.getElementById("thecanvas");
+            var ctx = canvas.getContext("2d");
+            ctx.fillStyle = "rgba(125, 46, 138, 0.5)";
+            ctx.fillRect(25,25,100,100);
+            ctx.fillStyle = "rgba( 0, 146, 38, 0.5)";
+            ctx.fillRect(58, 74, 125, 100);
+            ctx.fillStyle = "rgba( 0, 0, 0, 1)"; // black color
+            ctx.fillText("Gloomyfish - Demo", 50, 50);
+        }
+
+        function bindButtonEvent(element, type, handler)
+        {
+            if(element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else {
+                element.attachEvent('on'+type, handler);
+            }
+        }
+
+        function saveImageInfo ()
+        {
+            var mycanvas = document.getElementById("thecanvas");
+            var image    = mycanvas.toDataURL("image/png");
+            var w=window.open('about:blank','image from canvas');
+            w.document.write("<img src='"+image+"' alt='from canvas'/>");
+        }
+
+        function saveAsLocalImage () {
+            var myCanvas = document.getElementById("thecanvas");
+            // here is the most important part because if you dont replace you will get a DOM 18 exception.
+            // var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream;Content-Disposition: attachment;filename=foobar.png");
+            var image = myCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            window.location.href=image; // it will save locally
+        }
+    </script>
+</head>
+<body bgcolor="#E6E6FA">
+<div>
+    <canvas width=200 height=200 id="thecanvas"></canvas>
+    <button id="saveImageBtn">Save Image</button>
+    <button id="downloadImageBtn">Download Image</button>
+</div>
+</body>
+</html>
