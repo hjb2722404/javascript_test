@@ -1,0 +1,18 @@
+{
+  "name": "react-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    /*"start": "hjs-dev-server",
+    "build": "webpack",
+    "deploy": "npm run build && surge -p public -d localhost:3000"*/
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hjs-webpack": "^8.4.3"
+  }
+}
